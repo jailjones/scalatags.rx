@@ -2,6 +2,7 @@ package scalatags
 
 package object rx {
 
-  object Implicits extends RxElement with RxAttr
+  object Implicits extends nodes with atttributes
+
 
 }
