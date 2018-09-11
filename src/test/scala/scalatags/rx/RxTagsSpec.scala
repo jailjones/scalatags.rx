@@ -7,11 +7,11 @@ import org.scalajs.dom.Node
 import rx.Ctx.Owner.Unsafe._
 import rx._
 import scalatags.JsDom.all._
-import scalatags.rx.nodes._
+import tags._
 
-class nodesSpec extends UnitSpec {
+class RxTagsSpec extends UnitSpec {
 
-  "Frag" should "bind text" in {
+  "Tag" should "bind text" in {
     val el = div {
       "a"
     }.render
@@ -34,6 +34,34 @@ class nodesSpec extends UnitSpec {
 
     v() = "c"
     $(el).text() should equal("c1")
+  }
+
+  it should "bind Rx number" in {
+    val v = Var(1)
+    val el = div {
+      Rx {
+        v() + 1
+      }
+    }.render
+
+    $(el).text() should equal("2")
+
+    v() = 2
+    $(el).text() should equal("3")
+  }
+
+  it should "bind Rx boolean" in {
+    val v = Var(true)
+    val el = div {
+      Rx {
+        v()
+      }
+    }.render
+
+    $(el).text() should equal("true")
+
+    v() = false
+    $(el).text() should equal("false")
   }
 
   it should "bind Rx node" in {
@@ -62,38 +90,6 @@ class nodesSpec extends UnitSpec {
     }.render
 
     $("p", el).text() should equal("a1")
-
-    v() = "b"
-    $(el).text() should equal("b1")
-
-    v() = "c"
-    $(el).text() should equal("c1")
-  }
-
-  it should "bind Rx int" in {
-    val v = Var(1)
-    val v2 = Var(2)
-    val el = div {
-      Rx {
-        p(v() + v2())
-      }
-    }.render
-
-    $("p", el).text().toInt should ===(3)
-
-    v() = 5
-    v2() = 10
-    $("p", el).text().toInt should ===(15)
-
-  }
-
-  it should "bind to rx value no nested frag" in {
-    val v = Var("a")
-    val el = div {
-      Rx(v() + 1)
-    }.render
-
-    $(el).text() should equal("a1")
 
     v() = "b"
     $(el).text() should equal("b1")
@@ -159,21 +155,34 @@ class nodesSpec extends UnitSpec {
 
   }
 
-  it should "still render if empty list" in {
+  it should "render if empty list" in {
     val el = div(Var(Seq.empty[Frag])).render
     el.childElementCount should ===(0)
 
-    //    val el2 = div(Var(Seq.empty[Node])).render
-    //    el2.childElementCount should === (0)
-
+    val el2 = div(Var(Seq.empty[Node])).render
+    el2.childElementCount should ===(0)
   }
-
-  //  it should "render option" in {
-  //    println(div(Var(Option(1))))
-  //  }
 
   it should "render seq of values" in {
-    println(div(Var(Seq(p(1), p(2), p(3)))))
+    val v = Var(1 to 10)
+    val d = div(v)
+    d.toString() should equal(div(1 to 10).toString)
 
+    v() = 20 to 40
+    d.toString() should equal(div(20 to 40).toString)
   }
+
+  it should "render option" in {
+    val vars = Var(Option(1).toSeq)
+    val el = div(vars).render
+
+    $(el).text() should equal("1")
+
+    vars() = Option(2).toSeq
+    $(el).text() should equal("2")
+
+    vars() = None.toSeq
+    $(el).text() should equal("")
+  }
+
 }
