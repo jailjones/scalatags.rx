@@ -69,6 +69,17 @@ class RxStyleSpec extends UnitSpec {
     }
   }
 
+  it should "render decimal pixel value" in {
+    Rx {
+      val v = Var(1.1.px)
+      val el = div(margin := v()).render
+      $(el).css("margin") should equal("1.1px")
+
+      v() = 2.2.px
+      $(el).css("margin") should equal("2.2px")
+    }
+  }
+
   it should "render perform pixel math" in {
     val v = Var(1)
     val v2 = Var(1)
