@@ -84,14 +84,29 @@ class RxStyleSpec extends UnitSpec {
     val v = Var(1)
     val v2 = Var(1)
     val el = div(margin := Rx(v() + v2() px)).render
+
     $(el).css("margin") should equal("2px")
 
     v() = 2
     $(el).css("margin") should equal("3px")
-
-
   }
 
+  it should "render pct value as number" in {
+    val v = Var(1)
+    val el = div(margin := Rx(v() pct)).render
+    el.style.margin should equal("1%")
 
+    v() = 2
+    el.style.margin should equal("2%")
+  }
+
+  it should "render pct value as string" in {
+    val v = Var(1 pct)
+    val el = div(margin := Rx(v())).render
+    el.style.margin should equal("1%")
+
+    v() = 2.pct
+    el.style.margin should equal("2%")
+  }
 }
 
