@@ -1,4 +1,3 @@
-
 enablePlugins(ScalaJSPlugin)
 
 name := "scalatags-rx"
@@ -30,6 +29,8 @@ resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
 libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6"
 libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.6.7"
 libraryDependencies += "com.lihaoyi" %%% "scalarx" % "0.4.0"
+
+testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oVDF")
 
 libraryDependencies += "org.scalatest" %%% "scalatest" % "3.0.5" % Test
 libraryDependencies += "org.querki" %%% "jquery-facade" % "1.2" % Test

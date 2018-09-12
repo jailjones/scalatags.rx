@@ -52,9 +52,10 @@ trait LowPriorityRxTagImplicits {
 
   implicit class RxTraversableFrag[A](val rx: Rx[Traversable[A]])(implicit ev: A => Frag, ctx: Ctx.Owner) extends Frag {
 
-    private implicit def toNodes(t: Traversable[A]): Traversable[Node] = t.map(ev(_).render)
+    implicit private def toNodes(t: Traversable[A]): Traversable[Node] =
+      t.map(ev(_).render)
 
-    private implicit def toFrag(t: Traversable[Node]): DocumentFragment = {
+    implicit private def toFrag(t: Traversable[Node]): DocumentFragment = {
       val frag = document.createDocumentFragment()
       t.foreach(frag.appendChild)
       frag

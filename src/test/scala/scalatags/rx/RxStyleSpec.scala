@@ -109,4 +109,3 @@ class RxStyleSpec extends UnitSpec {
     el.style.margin should equal("2%")
   }
 }
-

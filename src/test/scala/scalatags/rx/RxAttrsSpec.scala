@@ -40,5 +40,4 @@ class RxAttrsSpec extends UnitSpec {
     $(el).attr("id").get should equal("false")
   }
 
-
 }

@@ -15,8 +15,8 @@ trait RxAttrs {
   implicit def RxDynamicAttrValue[A: AttrValue](implicit ctx: Ctx.Owner): RxAttrValue[A, Rx.Dynamic[A]] = new RxAttrValue
 
   final class RxAttrValue[A, R <: Rx[A]](implicit av: AttrValue[A], ctx: Ctx.Owner) extends AttrValue[R] {
-    override def apply(t: Element, a: Attr, rx: R): Unit = rx.trigger(av(t, a, _))
+    override def apply(t: Element, a: Attr, rx: R): Unit =
+      rx.trigger(av(t, a, _))
   }
 
 }
-
