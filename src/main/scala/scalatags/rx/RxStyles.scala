@@ -40,9 +40,4 @@ trait RxDataConverter {
     override def apply(s: Style, v: Rx[String]): StylePair[Element, _] = StylePair(s, v.map(_ + "px"), sv)
   }
 
-  // implicit def RxInt2RxCssNumber(x: Rx[Int]): RxCssNumber[Int] = new RxCssNumber[Int](x)
-}
-
-class RxCssNumber[T](val x: Rx[T]) extends AnyVal {
-  def pct(implicit ctx: Ctx.Owner) = x map (_ + "pct")
 }
