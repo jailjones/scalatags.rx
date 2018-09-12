@@ -1,7 +1,23 @@
 language: scala
 
+sudo: false
+
+cache:
+  directories:
+  - $HOME/.m2/repository
+  - $HOME/.sbt
+  - $HOME/.ivy2
+  - "node_modules"
+  yarn: true
+
+before_install:
+  - npm i -g jsdom
+
 script:
-- sbt ++$TRAVIS_SCALA_VERSION test
+  - sbt ++$TRAVIS_SCALA_VERSION test
+
+  # Trick to avoid unnecessary cache updates
+  - find $HOME/.sbt -name "*.lock" | xargs rm
 
 scala:
 - 2.12.6
@@ -10,4 +26,12 @@ jdk:
 - openjdk8
 - oraclejdk8
 
-sudo: false
+notifications:
+  email:
+    recipients:
+      - jailjones@gmail.com
+
+
+  slack:
+    rooms:
+      - jailjones:21Utug42gPpKZSzCkjZZLXGZ
