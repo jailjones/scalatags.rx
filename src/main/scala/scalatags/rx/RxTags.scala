@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicReference
 import org.scalajs.dom._
 import rx._
 import scalatags.JsDom._
+import language.implicitConversions
 
 object RxTags extends RxTags
 

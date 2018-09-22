@@ -28,8 +28,9 @@ trait RxDataConverter {
   implicit def VarPixelStyleValue[A](implicit ev: StyleValue[Var[A]], ctx: Ctx.Owner): RxPixelStyleValue[A, Var[A]] =
     new RxPixelStyleValue(ev)
 
-  implicit def RxDynamicPixelStyleValue[A](implicit ev: StyleValue[Rx.Dynamic[A]],
-                                           ctx: Ctx.Owner): RxPixelStyleValue[A, Rx.Dynamic[A]] =
+  implicit def RxDynamicPixelStyleValue[A](
+      implicit ev: StyleValue[Rx.Dynamic[A]],
+      ctx: Ctx.Owner): RxPixelStyleValue[A, Rx.Dynamic[A]] =
     new RxPixelStyleValue(ev)
 
   implicit def RxPixelStyleValue[A](implicit ev: StyleValue[Rx[A]], ctx: Ctx.Owner): RxPixelStyleValue[A, Rx[A]] =

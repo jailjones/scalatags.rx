@@ -5,6 +5,7 @@ import org.scalactic.Equality._
 import rx.Ctx.Owner.Unsafe._
 import rx._
 import scalatags.JsDom.all._
+import scalatags.UnitSpec
 import scalatags.rx.attrs._
 
 class RxAttrsSpec extends UnitSpec {

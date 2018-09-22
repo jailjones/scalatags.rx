@@ -5,7 +5,9 @@ import org.scalactic.Equality._
 import rx.Ctx.Owner.Unsafe._
 import rx._
 import scalatags.JsDom.all._
+import scalatags.UnitSpec
 import styles._
+import language.postfixOps
 
 class RxStyleSpec extends UnitSpec {
 

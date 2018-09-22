@@ -7,6 +7,7 @@ import org.scalajs.dom.Node
 import rx.Ctx.Owner.Unsafe._
 import rx._
 import scalatags.JsDom.all._
+import scalatags.UnitSpec
 import tags._
 
 class RxTagsSpec extends UnitSpec {
@@ -85,7 +86,7 @@ class RxTagsSpec extends UnitSpec {
     val v = Var("a")
     val el = div {
       Rx {
-        p(v() + 1)
+        p(v() + "1")
       }
     }.render
 

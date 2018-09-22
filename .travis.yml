@@ -1,37 +1,41 @@
-language: scala
-
 sudo: false
 
-cache:
-  directories:
-  - $HOME/.m2/repository
-  - $HOME/.sbt
-  - $HOME/.ivy2
-  - "node_modules"
-  yarn: true
+language: scala
+
+scala:
+  - 2.12.6
+
+jdk:
+  - oraclejdk8
+
+node_js: 9
 
 before_install:
-  - npm install
+  - yarn install
 
 script:
   - sbt ++$TRAVIS_SCALA_VERSION test
 
-  # Trick to avoid unnecessary cache updates
-  - find $HOME/.sbt -name "*.lock" | xargs rm
+before_cache:
+  - du -h -d 1 $HOME/.ivy2/cache
+  - du -h -d 2 $HOME/.sbt/
+  - find $HOME/.sbt -name "*.lock" -type f -delete
+  - find $HOME/.ivy2/cache -name "ivydata-*.properties" -type f -delete
+  - find $HOME/.ivy2/cache -name "*scalafix*.xml" -type f -delete
+  - rm -rf $HOME/.ivy2/local
 
-scala:
-- 2.12.6
-
-jdk:
-- openjdk8
-- oraclejdk8
+cache:
+  yarn: true
+  directories:
+  - $HOME/.m2/repository
+  - $HOME/.sbt
+  - $HOME/.ivy2/cache
+  - "node_modules"
 
 notifications:
   email:
     recipients:
       - jailjones@gmail.com
-
-
   slack:
     rooms:
       - jailjones:21Utug42gPpKZSzCkjZZLXGZ

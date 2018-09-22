@@ -1,0 +1,5 @@
+alias r=reload
+alias c=compile
+alias t=test
+alias cl=clean
+alias format=;scalafmt;test:scalafmt;scalafmtSbt
